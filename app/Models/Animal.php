@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Animal extends Model
 {
-    //
+    protected $fillable = [
+        'nom',
+        'categorie',
+        'status',
+    ];
 }
