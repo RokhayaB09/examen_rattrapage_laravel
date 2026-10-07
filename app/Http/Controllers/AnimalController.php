@@ -24,8 +24,9 @@ class AnimalController extends Controller
         $validated = $request->validate([
             'nom' => 'required|string|max:255',
             'categorie' => 'required|string|max:255',
-            'status' => 'required|string|in:DISPONIBLE,ADOPTE,EN SOIN',
+            'status' => 'nullable|string|in:DISPONIBLE,ADOPTE,EN SOIN'
         ]);
+        $validated['status'] = $validated['status'] ?? 'DISPONIBLE';
         $animal = Animal::create($validated);
         return response()->json($animal, 201);
     }
@@ -44,7 +45,7 @@ class AnimalController extends Controller
     public function update(Request $request, Animal $animal)
     {
         $validated = $request->validate([
-            'status' => 'required|string|in:DISPONIBLE,ADOPTE,EN SOIN',
+            'status' => 'required|string|in:DISPONIBLE,ADOPTE,EN SOIN'
         ]);
         $animal->update($validated);
         return response()->json($animal);
